@@ -1,7 +1,18 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 
 public class Sale
 {
+    public Sale(DateTime date, string customer, string branch)
+    {
+        Id = Guid.NewGuid();
+        SaleDate = date;
+        Customer = customer;
+        Branch = branch;
+    }
+
+
     public Guid Id { get; set; }
     public string SaleNumber { get; set; } = default!;
     public DateTime SaleDate { get; set; }
@@ -18,4 +29,25 @@ public class Sale
         foreach (var item in Items)
             item.Cancel();
     }
+
+    public void AddItem(Guid productId, string productName, int quantity, decimal unitPrice)
+    {
+        Items.Add(new SaleItem(productId, productName, quantity, unitPrice));
+    }
+    public void UpdateItem(Guid productId, string productName, int quantity, decimal unitPrice)
+    {
+        var item = Items.FirstOrDefault(i => i.ProductId == productId);
+        if (item != null)
+        {
+            item.Update(productName, quantity, unitPrice);
+        }
+    }
+
+    public void UpdateSaleDetails(DateTime date, string customer, string branch)
+    {
+        SaleDate = date;
+        Customer = customer;
+        Branch = branch;
+    }
+
 }

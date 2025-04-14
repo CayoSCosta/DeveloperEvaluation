@@ -1,6 +1,16 @@
 ﻿namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 public class SaleItem
 {
+    public SaleItem(Guid productId, string productName, int quantity, decimal unitPrice)
+    {
+        Id = Guid.NewGuid();
+        ProductId = productId;
+        ProductName = productName;
+        Quantity = quantity;
+        UnitPrice = unitPrice;
+        ApplyDiscount();
+    }
+
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
     public string ProductName { get; set; } = default!;
@@ -26,5 +36,12 @@ public class SaleItem
     public void Cancel()
     {
         IsCancelled = true;
+    }
+
+    public void Update(string productName, int quantity, decimal unitPrice)
+    {
+        ProductName = productName;
+        Quantity = quantity;
+        UnitPrice = unitPrice;
     }
 }
