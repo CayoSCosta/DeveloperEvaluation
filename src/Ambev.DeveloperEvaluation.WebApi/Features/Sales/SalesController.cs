@@ -37,7 +37,7 @@ public class SalesController : BaseController
     public async Task<IActionResult> GetSale([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var request = new GetSaleRequest { Id = id };
-        var validator = new GetSaleRequestValidator();
+        var validator = new GetSale.GetSaleValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
@@ -53,12 +53,11 @@ public class SalesController : BaseController
             Data = _mapper.Map<GetSaleResponse>(result)
         });
     }
-
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWithData<List<GetAllSalesResponse>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllSales(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllSales([FromQuery] int page = 1, [FromQuery] int size = 10, [FromQuery] string orderBy = "SaleDate", [FromQuery] string orderDirection = "asc", CancellationToken cancellationToken = default)
     {
-        var result = await _mediator.Send(new GetAllSalesCommand(), cancellationToken);
+        var result = await _mediator.Send(new GetAllSalesCommand(page, size, orderBy, orderDirection), cancellationToken);
 
         return Ok(new ApiResponseWithData<List<GetAllSalesResponse>>
         {
@@ -68,12 +67,13 @@ public class SalesController : BaseController
         });
     }
 
+
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSale([FromBody] CreateSaleRequest request, CancellationToken cancellationToken)
     {
-        var validator = new CreateSaleRequestValidator();
+        var validator = new CreateSale.CreateSaleValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)

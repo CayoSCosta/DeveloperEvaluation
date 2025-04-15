@@ -10,7 +10,5 @@ public class GetAllSalesProfile : Profile
     {
         CreateMap<Sale, GetSaleResult>()
             .ForMember(dest => dest.SaleId, opt => opt.MapFrom(src => src.Id));
-
-        CreateMap<SaleItem, GetSaleItemResult>();
     }
 }

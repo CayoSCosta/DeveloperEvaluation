@@ -2,9 +2,9 @@
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 
-public class GetSaleRequestValidator : AbstractValidator<GetSaleRequest>
+public class GetSaleValidator : AbstractValidator<GetSaleRequest>
 {
-    public GetSaleRequestValidator()
+    public GetSaleValidator()
     {
         RuleFor(x => x.Id).NotEmpty().WithMessage("Sale ID must not be empty.");
     }
