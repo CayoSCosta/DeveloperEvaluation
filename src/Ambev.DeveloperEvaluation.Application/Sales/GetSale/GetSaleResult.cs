@@ -43,3 +43,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale
 //    public int Quantity { get; set; }
 //    public decimal UnitPrice { get; set; }
 //}
+
+//public class GetSaleResult
+//{
+//    public Guid Id { get; set; }
+//    public string Code { get; set; } = string.Empty;
+//    public decimal TotalAmount { get; set; }
+//    public DateTime CreatedAt { get; set; }
+//}

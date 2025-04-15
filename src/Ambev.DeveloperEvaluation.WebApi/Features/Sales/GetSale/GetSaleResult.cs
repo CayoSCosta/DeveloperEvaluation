@@ -1,6 +1,6 @@
 ﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 
-public class GetSaleCommandResult
+public class GetSaleResult
 {
     public Guid Id { get; set; }
     public string Code { get; set; } = string.Empty;
