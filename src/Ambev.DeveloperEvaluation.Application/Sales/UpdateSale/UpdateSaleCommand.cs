@@ -2,7 +2,7 @@
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
-public class UpdateSaleCommand : IRequest<Unit>
+public class UpdateSaleCommand : IRequest<UpdateSaleResult>
 {
     public Guid SaleId { get; set; }
     public DateTime Date { get; set; }

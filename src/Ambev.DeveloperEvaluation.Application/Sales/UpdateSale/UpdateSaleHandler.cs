@@ -1,18 +1,20 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Repositories.Sales;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Domain.Repositories.Sales;
+using AutoMapper;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
-
-public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, Unit>
+public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
 {
     private readonly ISalesRepository _repository;
+    private readonly IMapper _mapper; // Supondo que você precise de um mapper
 
-    public UpdateSaleHandler(ISalesRepository repository)
+    public UpdateSaleHandler(ISalesRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<Unit> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
+    public async Task<UpdateSaleResult> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
     {
         var sale = await _repository.GetByIdAsync(request.SaleId, cancellationToken);
 
@@ -28,6 +30,6 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, Unit>
 
         await _repository.UpdateAsync(sale, cancellationToken);
 
-        return Unit.Value;
+        return new UpdateSaleResult(sale.Id);
     }
 }

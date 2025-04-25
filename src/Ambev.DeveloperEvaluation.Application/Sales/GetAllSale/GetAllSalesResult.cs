@@ -18,5 +18,6 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetAll
             TotalAmount = sale.TotalAmount;
             SaleDate = sale.SaleDate;
         }
+
     }
 }

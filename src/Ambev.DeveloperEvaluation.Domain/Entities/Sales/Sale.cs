@@ -12,6 +12,9 @@ public class Sale
         Branch = branch;
     }
 
+    public Sale()
+    {
+    }
 
     public Guid Id { get; set; }
     public string SaleNumber { get; set; } = default!;

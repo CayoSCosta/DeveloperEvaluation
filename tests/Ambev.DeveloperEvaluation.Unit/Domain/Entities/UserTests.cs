@@ -71,13 +71,18 @@ public class UserTests
         // Arrange
         var user = new User
         {
-            Username = "", // Invalid: empty
+            Username = "cayoo", // Invalid: empty
             Password = UserTestData.GenerateInvalidPassword(), // Invalid: doesn't meet password requirements
             Email = UserTestData.GenerateInvalidEmail(), // Invalid: not a valid email
             Phone = UserTestData.GenerateInvalidPhone(), // Invalid: doesn't match pattern
             Status = UserStatus.Unknown, // Invalid: cannot be Unknown
             Role = UserRole.None // Invalid: cannot be None
         };
+
+        Console.WriteLine($"Username: {user.Username}");
+        Console.WriteLine($"Email: {user.Email}");
+        Console.WriteLine($"Phone: {user.Phone}");
+        Console.WriteLine($"Pass: {user.Password}");
 
         // Act
         var result = user.Validate();
